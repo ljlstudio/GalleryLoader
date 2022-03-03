@@ -8,7 +8,9 @@
     <application android:hardwareAccelerated="true">
         <activity
             android:name=".activity.GalleryActivity"
+
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
+            android:theme="@style/NoTitle"
             android:screenOrientation="portrait" />
 
     </application>

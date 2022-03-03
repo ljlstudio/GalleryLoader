@@ -57,7 +57,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryCallbac
         loader = new AlbumLoader();
         loader.setAlbumLoaderBuilder(new AlbumLoaderBuilder().
                 setCallBack(this).
-                setPageSize(50).
+                setPageSize(25).
                 setShowLastModified(true).
                 setLoadPaging(false));
 
@@ -137,8 +137,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryCallbac
                     .runtime()
                     .permission(PermissionUtils.CLEAN_STORAGE_PERMISSIONS)
                     .onGranted(permissions -> {
-
-//                        loader.loadClassyData(this);
+                        loader.loadClassyData(this);
                         loader.loadAllListData(this);
                     })
                     .onDenied(permissions -> {

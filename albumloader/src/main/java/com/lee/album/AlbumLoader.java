@@ -5,9 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.loader.app.LoaderManager;
@@ -41,6 +43,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class AlbumLoader {
 
 
+    private static final String TAG = AlbumLoader.class.getSimpleName();
     private AlbumLoaderBuilder albumLoaderBuilder;
     private CopyOnWriteArrayList<GalleryInfoEntity> allData = new CopyOnWriteArrayList<>();
     private CopyOnWriteArrayList<AlbumInfoEntity> album = new CopyOnWriteArrayList<>();
@@ -111,7 +114,7 @@ public class AlbumLoader {
             } else {
                 loadListData(context, selectionArgsName, LoaderType.LOADER_TITLE, id);
             }
-        }, 150);
+        }, 100);
 
     }
 
@@ -202,6 +205,8 @@ public class AlbumLoader {
                 count = mCursor.getCount();
                 int size1 = allData.size() - 1;
                 mCursor.moveToPosition(size1);
+
+                Log.d(TAG,"PAGE SIZE IS"+albumLoaderBuilder.getPageSize());
                 while (mCursor.moveToNext() && isRunning && size < albumLoaderBuilder.getPageSize()) {
                     String path = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.DATA));
 
