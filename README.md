@@ -23,3 +23,8 @@ app目录build文件中配置引用
 ```
      implementation 'com.github.ljlstudio:GalleryLoader:tag' ..tag为最新release 版本（1.0.2）
 ```
+
+
+## 代码中使用
+
+使用loader 有两种方式,
