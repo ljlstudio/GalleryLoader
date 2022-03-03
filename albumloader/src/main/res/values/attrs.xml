@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MMaxHeightRecyclerView">
+        <attr name="maxHeightRcvHeight" format="dimension" />
+    </declare-styleable>
+</resources>

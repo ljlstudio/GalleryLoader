@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="alpha_60_black">#99000000</color>
+    <color name="color_888888">#888888</color>
+    <color name="color_333333">#312f2c</color>
+    <color name="color_f4f4f4">#f4f4f4</color>
+    <string name="color_ededed">#ededed</string>
+    <color name="white">#ffffff</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="black">#000000</color>
+</resources>
