@@ -45,6 +45,16 @@ public class GalleryParam {
     public OnGalleryListener onGalleryListener;
 
     /**
+     * 是否分页
+     */
+    public boolean shouldLoadPaging;
+
+    /**
+     * 分页加载一次每次返回条数 建议10-30之间
+     */
+    public int pageSize;
+
+    /**
      * 获取相机配置参数
      *
      * @return
@@ -53,6 +63,10 @@ public class GalleryParam {
         return mInstance;
     }
 
+
+    private GalleryParam() {
+        reset();
+    }
 
     /**
      * 重置数据
@@ -63,6 +77,8 @@ public class GalleryParam {
         listPictureMargin = 0;
         listPictureRowSpace = 0;
         listPicturePlaceholder = -1;
+        shouldLoadPaging = false;
+        pageSize = 10;
     }
 
 

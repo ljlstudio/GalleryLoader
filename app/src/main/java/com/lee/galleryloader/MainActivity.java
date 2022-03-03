@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
                 .widthListPictureColumnSpace(5)
                 .widthListPictureRowSpace(5)
                 .widthListPictureCorner(5)
+                .withShouldLoadPaging(false)
+                .widthPageSize(10)
                 .widthListPicturePlaceholder(R.color.design_snackbar_background_color)
                 .widthOnGalleryListener((path, position) -> {
                     Toast.makeText(MainActivity.this, "------->PATH=" + path + "------->position=" + position, Toast.LENGTH_LONG).show();

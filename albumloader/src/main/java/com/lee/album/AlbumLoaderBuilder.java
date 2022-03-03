@@ -39,14 +39,14 @@ public class AlbumLoaderBuilder {
     /**
      * 是否分页
      */
-    private boolean isLoadPaging;
+    private boolean shouldLoadPaging;
 
-    public boolean isLoadPaging() {
-        return isLoadPaging;
+    public boolean isShouldLoadPaging() {
+        return shouldLoadPaging;
     }
 
-    public AlbumLoaderBuilder setLoadPaging(boolean loadPaging) {
-        isLoadPaging = loadPaging;
+    public AlbumLoaderBuilder setShouldLoadPaging(boolean shouldLoadPaging) {
+        this.shouldLoadPaging = shouldLoadPaging;
         return this;
     }
 

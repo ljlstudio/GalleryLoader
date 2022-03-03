@@ -94,6 +94,26 @@ public class GalleryBuilder {
     }
 
     /**
+     * 是否分页
+     */
+    public GalleryBuilder withShouldLoadPaging(boolean noLoadPaging) {
+        galleryParam.shouldLoadPaging = noLoadPaging;
+        return this;
+    }
+
+
+    /**
+     * 分页数据
+     *
+     * @param pageSize
+     * @return
+     */
+    public GalleryBuilder widthPageSize(int pageSize) {
+        galleryParam.pageSize = pageSize;
+        return this;
+    }
+
+    /**
      * 打开相册预览
      */
     public void startGallery() {

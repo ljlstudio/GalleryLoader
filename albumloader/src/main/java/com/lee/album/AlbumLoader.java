@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -316,7 +315,7 @@ public class AlbumLoader {
                 albumLoaderBuilder.getCallBack().loadListDataSuccess(galleryInfoEntityList, allData);
             }
 
-            if (!albumLoaderBuilder.isLoadPaging() && isRunning) {
+            if (!albumLoaderBuilder.isShouldLoadPaging() && isRunning) {
                 loadListMore(context, selectionArgsName, id, loadType);
             }
         }

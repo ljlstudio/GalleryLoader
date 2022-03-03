@@ -5,15 +5,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lee.album.AlbumLoader;
 import com.lee.album.AlbumLoaderBuilder;
 import com.lee.album.R;
@@ -23,7 +19,6 @@ import com.lee.album.contract.GalleryCallbackContract;
 import com.lee.album.databinding.GalleryLayoutBinding;
 import com.lee.album.entity.AlbumData;
 import com.lee.album.entity.GalleryInfoEntity;
-import com.lee.album.inter.LoaderDataCallBack;
 import com.lee.album.permission.PermissionUtils;
 import com.lee.album.router.GalleryParam;
 import com.lee.album.widget.GalleryGrideLayoutManager;
@@ -31,8 +26,6 @@ import com.lee.album.widget.GalleryLayoutManager;
 import com.lee.album.widget.GridSpaceItemDecoration;
 import com.yanzhenjie.permission.AndPermission;
 
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -59,7 +52,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryCallbac
                 setCallBack(this).
                 setPageSize(25).
                 setShowLastModified(true).
-                setLoadPaging(false));
+                setShouldLoadPaging(galleryParam.shouldLoadPaging));
 
 
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) binding.recycler.getLayoutParams();
