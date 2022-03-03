@@ -1,4 +1,4 @@
-package com.lee.galleryloaderapplication;
+package com.lee.galleryloader;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -8,9 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
-import com.lee.album.inter.OnGalleryListener;
 import com.lee.album.router.GalleryEngine;
-import com.lee.galleryloaderapplication.databinding.ActivityMainBinding;
+import com.lee.galleryloader.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 

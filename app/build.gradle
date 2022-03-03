@@ -7,7 +7,7 @@ android {
     buildToolsVersion "28.0.2"
 
     defaultConfig {
-        applicationId "com.lee.galleryloaderapplication"
+        applicationId "com.lee.galleryloader"
         minSdkVersion 16
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 28

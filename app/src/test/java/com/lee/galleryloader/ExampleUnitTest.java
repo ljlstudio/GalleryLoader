@@ -1,4 +1,4 @@
-package com.lee.galleryloaderapplication;
+package com.lee.galleryloader;
 
 import org.junit.Test;
 
