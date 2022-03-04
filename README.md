@@ -21,7 +21,7 @@
 app目录build文件中配置引用
 
 ```
-     implementation 'com.github.ljlstudio:GalleryLoader:tag' ..tag为最新release 版本（1.0.3）
+     implementation 'com.github.ljlstudio:GalleryLoader:tag' ..tag为最新release 版本（1.0.4）
 ```
 
 
@@ -29,8 +29,11 @@ app目录build文件中配置引用
 
 使用loader 有两种方式:
 
-1.使用自带相册样式：
+**1.使用自带相册样式：**
 
+
+
+* **样式1：全屏模式**
 
 ```
         binding.insertGallery.setOnClickListener(v -> 
@@ -51,6 +54,45 @@ app目录build文件中配置引用
 
 ```
 
+* **样式2：BottomSheet 抽屉模式**
+
+```
+
+        GalleryEngine.from(BottomSheetActivity.this)
+                .setGalleryBuilder(BottomSheetActivity.this)
+                .widthListPictureMargin(5)
+                .widthListPictureColumnSpace(5)
+                .widthListPictureRowSpace(5)
+                .widthListPictureCorner(5)
+                .withShouldLoadPaging(false)
+                .widthPageSize(10)
+                .widthShouldClickCloseBottomSheet(false)
+                .withCanTouchDrag(false)
+                .widthListPicturePlaceholder(R.color.design_snackbar_background_color)
+                .widthOnGalleryListener(new OnGalleryListener() {
+                    @Override
+                    public void clickGallery(String path, int position) {
+                        Log.d(TAG,"------->PATH=" + path + "------->position=" + position);
+
+                    }
+
+                    @Override
+                    public void bottomSheetState(boolean isOpen, boolean fromUser) {
+                        Log.d(TAG,"抽屉状态" + isOpen);
+
+                    }
+
+                    @Override
+                    public void clickBadPicture(String path, int position) {
+                        Log.d(TAG,"------->点击了 损坏图片 PATH=" + path + "------->position=" + position);
+                    }
+                });
+
+
+        binding.bottomSheet.initData(this);
+```
+
+
 对应参数介绍：
 
 字段     |   含义
@@ -63,11 +105,12 @@ shouldLoadPaging        |   是否分页
 pageSize                |   分页加载一次每次返回条数 建议10-30之间
 listPicturePlaceholder  |   占位图或者颜色
 onGalleryListener       |   相册点击回调
+shouldClickCloseBottomSheet | 是否点击图片关闭bottomSheet
+canTouchDrag            |   是否可以拖拽上滑
 
 
 
-
-2.使用数据加载器回调数据源：
+ **2.使用数据加载器回调数据源：**
 
 
 
