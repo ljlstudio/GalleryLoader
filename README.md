@@ -21,5 +21,150 @@
 app目录build文件中配置引用
 
 ```
-     implementation 'com.github.ljlstudio:GalleryLoader:tag' ..tag为最新release 版本（1.0.2）
+     implementation 'com.github.ljlstudio:GalleryLoader:tag' ..tag为最新release 版本（1.0.3）
 ```
+
+
+## 代码中使用
+
+使用loader 有两种方式:
+
+1.使用自带相册样式：
+
+
+```
+        binding.insertGallery.setOnClickListener(v -> 
+        GalleryEngine.from(MainActivity.this)
+                .setGalleryBuilder(MainActivity.this)
+                .widthListPictureMargin(5)
+                .widthListPictureColumnSpace(5)
+                .widthListPictureRowSpace(5)
+                .widthListPictureCorner(5)
+                .withShouldLoadPaging(false)
+                .widthPageSize(10)
+                .widthListPicturePlaceholder(R.color.design_snackbar_background_color)
+                .widthOnGalleryListener((path, position) -> {
+                    Toast.makeText(MainActivity.this, "------->PATH=" + path + "------->position=" + position, Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "PATH" + path + "position" + position);
+                })
+                .startGallery());
+
+```
+
+对应参数介绍：
+
+字段     |   含义
+-------- | ---
+listPictureMargin       |   设置图片距离屏幕两边距离
+listPictureColumnSpace  |   列表图片列间距（图片之间）
+listPictureRowSpace     |   列表图片行间距（图片之间）
+listPictureCorner       |   设置图片圆角
+shouldLoadPaging        |   是否分页
+pageSize                |   分页加载一次每次返回条数 建议10-30之间
+listPicturePlaceholder  |   占位图或者颜色
+onGalleryListener       |   相册点击回调
+
+
+
+
+2.使用数据加载器回调数据源：
+
+
+
+
+```
+1.初始化加载器，设置 builder
+loader = new AlbumLoader();
+
+loader.setAlbumLoaderBuilder(new AlbumLoaderBuilder().
+                setCallBack(this).
+                setPageSize(10).
+                setShowLastModified(true).
+                setShouldLoadPaging(false);
+                
+                
+                
+                
+                
+  /**
+     * 加载相册数据
+     */
+    private void loadData() {
+        if (PermissionUtils.permissionsChecking(this, PermissionUtils.CLEAN_STORAGE_PERMISSIONS)) {
+            loader.loadClassyData(this);
+            loader.loadAllListData(this);
+        } else {
+            AndPermission.with(this)
+                    .runtime()
+                    .permission(PermissionUtils.CLEAN_STORAGE_PERMISSIONS)
+                    .onGranted(permissions -> {
+                        loader.loadClassyData(this);
+                        loader.loadAllListData(this);
+                    })
+                    .onDenied(permissions -> {
+
+
+                    })
+                    .start();
+        }
+    }
+                
+//监听数据回调
+
+    @Override
+    public void loadClassyDataSuccess(List<AlbumData> list) {
+        if (list != null && list.size() > 0) {
+        //相册分类数据回调  
+        }
+    }
+
+    @Override
+    public void loadListDataSuccess(List<GalleryInfoEntity> pageData, List<GalleryInfoEntity> currentAllData) {
+        if (pageData != null && pageData.size() > 0) {
+        //相册列表数据回调
+        }
+    }
+
+    @Override
+    public void clearData() {
+    //切换分类数据
+    }
+    
+    
+    //生命周期管理
+    
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (loader != null) {
+            loader.destroyLoader();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (loader != null) {
+            loader.resumeLoader();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (loader != null) {
+            loader.pauseLoader();
+        }
+    }
+    
+                
+```
+
+
+
+
+
+
+
+
