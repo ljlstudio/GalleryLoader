@@ -32,6 +32,9 @@ app目录build文件中配置引用
 **1.使用自带相册样式：**
 
 
+![device-2022-03-04-143816](https://user-images.githubusercontent.com/70507884/156712790-7de2b04c-7a42-48e9-b5ba-94ec55215681.gif)
+
+
 
 * **样式1：全屏模式**
 
