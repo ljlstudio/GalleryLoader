@@ -41,6 +41,8 @@ public class AlbumLoaderBuilder {
      */
     private boolean shouldLoadPaging;
 
+
+
     public boolean isShouldLoadPaging() {
         return shouldLoadPaging;
     }

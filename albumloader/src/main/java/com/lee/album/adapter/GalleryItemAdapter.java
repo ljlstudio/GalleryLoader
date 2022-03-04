@@ -53,14 +53,16 @@ public class GalleryItemAdapter extends BaseQuickAdapter<GalleryInfoEntity, Base
     protected void convert(@NotNull BaseViewHolder holder, GalleryInfoEntity galleryInfoEntity) {
 
         ShapeableImageView iv = holder.getView(R.id.img);
-        iv.getShapeAppearanceModel().withCornerSize(galleryParam.listPictureCorner);
+
         Glide.with(getContext())
                 .load(galleryInfoEntity.getImgPath())
-                .centerCrop()
                 .placeholder(galleryParam.listPicturePlaceholder == -1 ?
                         iv.getDrawable() :
                         getContext().getResources().getDrawable(galleryParam.listPicturePlaceholder))
                 .into(iv);
+
+        iv.setShapeAppearanceModel(iv.getShapeAppearanceModel().withCornerSize(galleryParam.listPictureCorner));
+
     }
 
 

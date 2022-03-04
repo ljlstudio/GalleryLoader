@@ -55,6 +55,16 @@ public class GalleryParam {
     public int pageSize;
 
     /**
+     * 是否点击图片关闭bottomSheet
+     */
+    public boolean shouldClickCloseBottomSheet;
+
+    /**
+     * 是否可以触摸拖拽
+     */
+    public boolean canTouchDrag;
+
+    /**
      * 获取相机配置参数
      *
      * @return
@@ -79,6 +89,8 @@ public class GalleryParam {
         listPicturePlaceholder = -1;
         shouldLoadPaging = false;
         pageSize = 10;
+        shouldClickCloseBottomSheet = false;
+        canTouchDrag = false;
     }
 
 

@@ -2,17 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lee.album">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application android:hardwareAccelerated="true">
+
         <activity
             android:name=".activity.GalleryActivity"
-
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
-            android:theme="@style/NoTitle"
-            android:screenOrientation="portrait" />
-
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitle" />
     </application>
 
 </manifest>

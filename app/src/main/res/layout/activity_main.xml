@@ -12,12 +12,29 @@
         tools:context=".MainActivity"
         tools:ignore="MissingConstraints">
 
-        <Button
-            android:id="@+id/insert_gallery"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="跳转相册" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/insert_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="使用相册类型1" />
+
+
+            <Button
+
+                android:id="@+id/insert_gallery2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="使用相册类型2" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </RelativeLayout>
 </layout>

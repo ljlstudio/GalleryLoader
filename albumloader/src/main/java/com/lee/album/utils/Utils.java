@@ -6,6 +6,7 @@ import android.media.ExifInterface;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -94,4 +95,8 @@ public class Utils {
         return 0;
     }
 
+
+    public static boolean existsFile(File file) {
+        return file != null && file.exists();
+    }
 }

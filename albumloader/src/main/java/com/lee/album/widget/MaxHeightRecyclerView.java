@@ -1,5 +1,6 @@
 package com.lee.album.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -31,7 +32,7 @@ public class MaxHeightRecyclerView extends RecyclerView {
     }
 
     private void initialize(Context context, AttributeSet attrs) {
-        TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.MMaxHeightRecyclerView);
+        @SuppressLint("CustomViewStyleable") TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.MMaxHeightRecyclerView);
         mMaxHeight = arr.getLayoutDimension(R.styleable.MMaxHeightRecyclerView_maxHeightRcvHeight, mMaxHeight);
         arr.recycle();
 

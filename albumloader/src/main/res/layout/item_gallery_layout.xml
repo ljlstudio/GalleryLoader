@@ -15,6 +15,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="match_parent"
             android:layout_gravity="center" />
 

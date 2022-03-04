@@ -3,65 +3,60 @@ package com.lee.galleryloader;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Toast;
 
 import com.lee.album.inter.OnGalleryListener;
+import com.lee.album.router.GalleryBuilder;
 import com.lee.album.router.GalleryEngine;
+import com.lee.galleryloader.databinding.ActivityGalleryBottomSheetBinding;
 import com.lee.galleryloader.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class BottomSheetActivity extends AppCompatActivity {
 
-
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = BottomSheetActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        ActivityMainBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_main, null, false);
+        ActivityGalleryBottomSheetBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_gallery_bottom_sheet, null, false);
         setContentView(binding.getRoot());
 
-        binding.insertGallery.setOnClickListener(v -> GalleryEngine.from(MainActivity.this)
-                .setGalleryBuilder(MainActivity.this)
+
+        GalleryEngine.from(BottomSheetActivity.this)
+                .setGalleryBuilder(BottomSheetActivity.this)
                 .widthListPictureMargin(5)
                 .widthListPictureColumnSpace(5)
                 .widthListPictureRowSpace(5)
                 .widthListPictureCorner(5)
                 .withShouldLoadPaging(false)
                 .widthPageSize(10)
+                .widthShouldClickCloseBottomSheet(false)
+                .withCanTouchDrag(false)
                 .widthListPicturePlaceholder(R.color.design_snackbar_background_color)
                 .widthOnGalleryListener(new OnGalleryListener() {
                     @Override
                     public void clickGallery(String path, int position) {
-                        Toast.makeText(MainActivity.this, "------->PATH=" + path + "------->position=" + position, Toast.LENGTH_SHORT).show();
+                        Log.d(TAG,"------->PATH=" + path + "------->position=" + position);
+
                     }
 
                     @Override
                     public void bottomSheetState(boolean isOpen, boolean fromUser) {
-                        Toast.makeText(MainActivity.this, "抽屉状态" + isOpen, Toast.LENGTH_SHORT).show();
+                        Log.d(TAG,"抽屉状态" + isOpen);
+
                     }
 
                     @Override
                     public void clickBadPicture(String path, int position) {
-                        Toast.makeText(MainActivity.this, "------->点击了 损坏图片 PATH=" + path + "------->position=" + position, Toast.LENGTH_SHORT).show();
+                        Log.d(TAG,"------->点击了 损坏图片 PATH=" + path + "------->position=" + position);
                     }
-                })
-                .startGallery());
+                });
 
 
-        binding.insertGallery2.setOnClickListener(v -> {
-
-            startActivity(new Intent(this, BottomSheetActivity.class));
-        });
-
-
+        binding.bottomSheet.initData(this);
     }
-
-
 }

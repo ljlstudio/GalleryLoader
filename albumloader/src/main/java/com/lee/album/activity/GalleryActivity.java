@@ -50,7 +50,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryCallbac
         loader = new AlbumLoader();
         loader.setAlbumLoaderBuilder(new AlbumLoaderBuilder().
                 setCallBack(this).
-                setPageSize(25).
+                setPageSize(galleryParam.pageSize).
                 setShowLastModified(true).
                 setShouldLoadPaging(galleryParam.shouldLoadPaging));
 
@@ -75,7 +75,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryCallbac
      */
     private void initTitleClassifyRecycler() {
         binding.classifyRecycler.setLayoutManager(new GalleryLayoutManager(this));
-        galleryClassifyAdapter = new GalleryClassifyAdapter(R.layout.item_gallery_list_layout);
+        galleryClassifyAdapter = new GalleryClassifyAdapter(R.layout.item_gallery_list_layout, galleryParam);
 
         binding.classifyRecycler.setAdapter(galleryClassifyAdapter);
 

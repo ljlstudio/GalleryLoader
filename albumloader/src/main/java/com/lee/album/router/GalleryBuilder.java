@@ -113,6 +113,28 @@ public class GalleryBuilder {
         return this;
     }
 
+
+    /**
+     * 是否点击图片关闭bottomSheet
+     *
+     * @param shouldClickCloseBottomSheet
+     * @return
+     */
+    public GalleryBuilder widthShouldClickCloseBottomSheet(boolean shouldClickCloseBottomSheet) {
+        galleryParam.shouldClickCloseBottomSheet = shouldClickCloseBottomSheet;
+        return this;
+    }
+
+    /**
+     * 是否可以拖拽上滑
+     * @param canTouchDrag
+     * @return
+     */
+    public GalleryBuilder withCanTouchDrag(boolean canTouchDrag){
+        galleryParam.canTouchDrag=canTouchDrag;
+        return this;
+    }
+
     /**
      * 打开相册预览
      */
