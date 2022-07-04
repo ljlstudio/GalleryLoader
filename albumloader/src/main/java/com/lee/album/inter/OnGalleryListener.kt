@@ -1,4 +1,4 @@
-package com.lee.album.inter;
+package com.lee.album.inter
 
 /**
  * Author : 李嘉伦
@@ -7,15 +7,14 @@ package com.lee.album.inter;
  * Package: com.lee.album.inter
  * desc   :
  */
-public interface OnGalleryListener {
+interface OnGalleryListener {
     /**
      * 点击图片
      *
      * @param path
      * @param position
      */
-    void clickGallery(String path, int position);
-
+    fun clickGallery(path: String?, position: Int)
 
     /**
      * 抽屉布局状态
@@ -23,13 +22,12 @@ public interface OnGalleryListener {
      * @param isOpen
      * @param fromUser
      */
-    void bottomSheetState(boolean isOpen, boolean fromUser);
-
+    fun bottomSheetState(isOpen: Boolean, fromUser: Boolean)
 
     /**
      * 点击了损坏的图片
      *
      * @param path
      */
-    void clickBadPicture(String path,int position);
+    fun clickBadPicture(path: String?, position: Int)
 }

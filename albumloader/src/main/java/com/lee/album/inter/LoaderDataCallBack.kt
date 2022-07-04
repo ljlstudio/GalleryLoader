@@ -1,9 +1,7 @@
-package com.lee.album.inter;
+package com.lee.album.inter
 
-import com.lee.album.entity.AlbumData;
-import com.lee.album.entity.GalleryInfoEntity;
-
-import java.util.List;
+import com.lee.album.entity.AlbumData
+import com.lee.album.entity.GalleryInfoEntity
 
 /**
  * Author : 李嘉伦
@@ -12,14 +10,13 @@ import java.util.List;
  * Package: com.lee.album.inter
  * desc   :
  */
-public interface LoaderDataCallBack {
-
+interface LoaderDataCallBack {
     /**
      * 加载标题列表数据回调
      *
      * @param list
      */
-    void loadClassyDataSuccess(List<AlbumData> list);
+    fun loadClassyDataSuccess(list: List<AlbumData?>?)
 
     /**
      * 加载列表数据回调
@@ -27,10 +24,13 @@ public interface LoaderDataCallBack {
      * @param pageData
      * @param currentAllData
      */
-    void loadListDataSuccess(List<GalleryInfoEntity> pageData, List<GalleryInfoEntity> currentAllData);
+    fun loadListDataSuccess(
+        pageData: List<GalleryInfoEntity?>?,
+        currentAllData: List<GalleryInfoEntity?>?
+    )
 
     /**
      * 切换不同标题时 清空数据回调
      */
-    void clearData();
+    fun clearData()
 }
