@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding =
             DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_main, null, false)
         setContentView(binding.root)
-        binding.insertGallery.setOnClickListener { v: View? ->
+        binding.insertGallery.setOnClickListener {
             from(this@MainActivity)
                 .setGalleryBuilder(this@MainActivity)
                 .widthListPictureMargin(5)
