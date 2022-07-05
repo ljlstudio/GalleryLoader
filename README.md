@@ -21,7 +21,8 @@
 app目录build文件中配置引用
 
 ```
-     implementation 'com.github.ljlstudio:GalleryLoader:tag' ..tag为最新release 版本（1.0.4）
+   implementation 'com.github.ljlstudio:GalleryLoader:1.0.4'//1.0.4以下为java 版本
+   implementation 'com.github.ljlstudio:GalleryLoader:1.0.5' ..tag为最新release 版本（1.0.5以后都为kotlin版本）//kotlin 版本
 ```
 
 
@@ -39,9 +40,9 @@ app目录build文件中配置引用
 * **样式1：全屏模式**
 
 ```
-        binding.insertGallery.setOnClickListener(v -> 
-        GalleryEngine.from(MainActivity.this)
-                .setGalleryBuilder(MainActivity.this)
+     
+        GalleryEngine.from(this@MainActivity)
+                .setGalleryBuilder(this@MainActivity)
                 .widthListPictureMargin(5)
                 .widthListPictureColumnSpace(5)
                 .widthListPictureRowSpace(5)
@@ -49,11 +50,28 @@ app目录build文件中配置引用
                 .withShouldLoadPaging(false)
                 .widthPageSize(10)
                 .widthListPicturePlaceholder(R.color.design_snackbar_background_color)
-                .widthOnGalleryListener((path, position) -> {
-                    Toast.makeText(MainActivity.this, "------->PATH=" + path + "------->position=" + position, Toast.LENGTH_LONG).show();
-                    Log.d(TAG, "PATH" + path + "position" + position);
+                .widthOnGalleryListener(object : OnGalleryListener {
+                    override fun clickGallery(path: String?, position: Int) {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "------->PATH=$path------->position=$position",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    override fun bottomSheetState(isOpen: Boolean, fromUser: Boolean) {
+                        Toast.makeText(this@MainActivity, "抽屉状态$isOpen", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun clickBadPicture(path: String?, position: Int) {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "------->点击了 损坏图片 PATH=$path------->position=$position",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 })
-                .startGallery());
+                .startGallery()
 
 ```
 
@@ -61,38 +79,41 @@ app目录build文件中配置引用
 
 ```
 
-        GalleryEngine.from(BottomSheetActivity.this)
-                .setGalleryBuilder(BottomSheetActivity.this)
-                .widthListPictureMargin(5)
-                .widthListPictureColumnSpace(5)
-                .widthListPictureRowSpace(5)
-                .widthListPictureCorner(5)
-                .withShouldLoadPaging(false)
-                .widthPageSize(10)
-                .widthShouldClickCloseBottomSheet(false)
-                .withCanTouchDrag(false)
-                .widthListPicturePlaceholder(R.color.design_snackbar_background_color)
-                .widthOnGalleryListener(new OnGalleryListener() {
-                    @Override
-                    public void clickGallery(String path, int position) {
-                        Log.d(TAG,"------->PATH=" + path + "------->position=" + position);
-
-                    }
-
-                    @Override
-                    public void bottomSheetState(boolean isOpen, boolean fromUser) {
-                        Log.d(TAG,"抽屉状态" + isOpen);
-
-                    }
-
-                    @Override
-                    public void clickBadPicture(String path, int position) {
-                        Log.d(TAG,"------->点击了 损坏图片 PATH=" + path + "------->position=" + position);
-                    }
-                });
+    //布局中配置BottomSheetLayout 
+    <com.lee.album.activity.BottomSheetLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
-        binding.bottomSheet.initData(this);
+       //初始化BottomSheetLayout 数据
+
+        GalleryEngine.from(this@BottomSheetActivity)
+            .setGalleryBuilder(this@BottomSheetActivity)
+            .widthListPictureMargin(5)
+            .widthListPictureColumnSpace(5)
+            .widthListPictureRowSpace(5)
+            .widthListPictureCorner(5)
+            .withShouldLoadPaging(false)
+            .widthPageSize(10)
+            .widthShouldClickCloseBottomSheet(false)
+            .withCanTouchDrag(false)
+            .widthListPicturePlaceholder(R.color.design_snackbar_background_color)
+            .widthOnGalleryListener(object : OnGalleryListener {
+                override fun clickGallery(path: String?, position: Int) {
+                    Log.d(TAG, "------->PATH=$path------->position=$position")
+                }
+
+                override fun bottomSheetState(isOpen: Boolean, fromUser: Boolean) {
+                    Log.d(TAG, "抽屉状态$isOpen")
+                }
+
+                override fun clickBadPicture(path: String?, position: Int) {
+                    Log.d(TAG, "------->点击了 损坏图片 PATH=$path------->position=$position")
+                }
+            })
+        binding.bottomSheet.initData(this)
 ```
 
 
@@ -120,88 +141,74 @@ canTouchDrag            |   是否可以拖拽上滑
 
 ```
 1.初始化加载器，设置 builder
-loader = new AlbumLoader();
+  loader = AlbumLoader()
 
-loader.setAlbumLoaderBuilder(new AlbumLoaderBuilder().
-                setCallBack(this).
-                setPageSize(10).
-                setShowLastModified(true).
-                setShouldLoadPaging(false);
+        loader?.setAlbumLoaderBuilder(
+            AlbumLoaderBuilder()
+            .setCallBack(this)
+            .setPageSize(10)
+            .setShowLastModified(true)
+            .setShouldLoadPaging(false)
+        )
                 
                 
                 
                 
-                
-  /**
+
+ /**
      * 加载相册数据
      */
-    private void loadData() {
+    private fun loadData() {
         if (PermissionUtils.permissionsChecking(this, PermissionUtils.CLEAN_STORAGE_PERMISSIONS)) {
-            loader.loadClassyData(this);
-            loader.loadAllListData(this);
+            loader!!.loadClassyData(this)
+            loader!!.loadAllListData(this)
         } else {
             AndPermission.with(this)
-                    .runtime()
-                    .permission(PermissionUtils.CLEAN_STORAGE_PERMISSIONS)
-                    .onGranted(permissions -> {
-                        loader.loadClassyData(this);
-                        loader.loadAllListData(this);
-                    })
-                    .onDenied(permissions -> {
-
-
-                    })
-                    .start();
+                .runtime()
+                .permission(*PermissionUtils.CLEAN_STORAGE_PERMISSIONS)
+                .onGranted {
+                    loader!!.loadClassyData(this)
+                    loader!!.loadAllListData(this)
+                }
+                .onDenied { }
+                .start()
         }
     }
                 
 //监听数据回调
 
-    @Override
-    public void loadClassyDataSuccess(List<AlbumData> list) {
-        if (list != null && list.size() > 0) {
-        //相册分类数据回调  
-        }
+   override fun loadClassyDataSuccess(list: List<AlbumData?>?) {
+        // TODO:  //相册分类数据回调
     }
 
-    @Override
-    public void loadListDataSuccess(List<GalleryInfoEntity> pageData, List<GalleryInfoEntity> currentAllData) {
-        if (pageData != null && pageData.size() > 0) {
-        //相册列表数据回调
-        }
+    override fun loadListDataSuccess(
+        pageData: List<GalleryInfoEntity?>?,
+        currentAllData: List<GalleryInfoEntity?>?
+    ) {
+        // TODO:  相册列表数据回调
     }
 
-    @Override
-    public void clearData() {
-    //切换分类数据
+    override fun clearData() {
+        // TODO: 切换分类数据
     }
     
     
     //生命周期管理
     
     
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (loader != null) {
-            loader.destroyLoader();
-        }
+   override fun onDestroy() {
+        super.onDestroy()
+        loader?.destroyLoader()
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (loader != null) {
-            loader.resumeLoader();
-        }
+    override fun onResume() {
+        super.onResume()
+        loader?.resumeLoader()
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (loader != null) {
-            loader.pauseLoader();
-        }
+    override fun onStop() {
+        super.onStop()
+        loader?.pauseLoader()
     }
     
                 
