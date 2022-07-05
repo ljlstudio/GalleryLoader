@@ -141,14 +141,15 @@ canTouchDrag            |   是否可以拖拽上滑
 
 ```
 1.初始化加载器，设置 builder
-loader = new AlbumLoader();
+  loader = AlbumLoader()
 
-loader.setAlbumLoaderBuilder(new AlbumLoaderBuilder().
-                setCallBack(this).
-                setPageSize(10).
-                setShowLastModified(true).
-                setShouldLoadPaging(false);
-                
+        loader?.setAlbumLoaderBuilder(
+            AlbumLoaderBuilder()
+            .setCallBack(this)
+            .setPageSize(10)
+            .setShowLastModified(true)
+            .setShouldLoadPaging(false)
+        )
                 
                 
                 
@@ -178,51 +179,38 @@ loader.setAlbumLoaderBuilder(new AlbumLoaderBuilder().
                 
 //监听数据回调
 
-    @Override
-    public void loadClassyDataSuccess(List<AlbumData> list) {
-        if (list != null && list.size() > 0) {
-        //相册分类数据回调  
-        }
+   override fun loadClassyDataSuccess(list: List<AlbumData?>?) {
+        // TODO:  //相册分类数据回调
     }
 
-    @Override
-    public void loadListDataSuccess(List<GalleryInfoEntity> pageData, List<GalleryInfoEntity> currentAllData) {
-        if (pageData != null && pageData.size() > 0) {
-        //相册列表数据回调
-        }
+    override fun loadListDataSuccess(
+        pageData: List<GalleryInfoEntity?>?,
+        currentAllData: List<GalleryInfoEntity?>?
+    ) {
+        // TODO:  相册列表数据回调
     }
 
-    @Override
-    public void clearData() {
-    //切换分类数据
+    override fun clearData() {
+        // TODO: 切换分类数据
     }
     
     
     //生命周期管理
     
     
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (loader != null) {
-            loader.destroyLoader();
-        }
+   override fun onDestroy() {
+        super.onDestroy()
+        loader?.destroyLoader()
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (loader != null) {
-            loader.resumeLoader();
-        }
+    override fun onResume() {
+        super.onResume()
+        loader?.resumeLoader()
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (loader != null) {
-            loader.pauseLoader();
-        }
+    override fun onStop() {
+        super.onStop()
+        loader?.pauseLoader()
     }
     
                 
