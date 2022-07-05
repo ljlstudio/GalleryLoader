@@ -21,8 +21,8 @@
 app目录build文件中配置引用
 
 ```
-     implementation 'com.github.ljlstudio:GalleryLoader:tag' ..tag为最新release 版本（1.0.4）//java 版本
-   implementation 'com.github.ljlstudio:GalleryLoader:tag' ..tag为最新release 版本（1.0.5）//kotlin 版本
+   implementation 'com.github.ljlstudio:GalleryLoader:1.0.4'//1.0.4以下为java 版本
+   implementation 'com.github.ljlstudio:GalleryLoader:1.0.5' ..tag为最新release 版本（1.0.5以后都为kotlin版本）//kotlin 版本
 ```
 
 
