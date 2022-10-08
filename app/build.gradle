@@ -39,31 +39,31 @@ android {
         enabled true
     }
 
-//    applicationVariants.all { variant ->
-//        variant.outputs.all { output ->
-//            def outputFile = output.outputFile
-//            def buildTypeName = ""
-//            def fileName = ""
-//            if (variant.buildType.name == "release") {
-//                buildTypeName = "release"
-//                fileName = "${variant.productFlavors[0].name}${variant.productFlavors[1].name}${variant.productFlavors[2].name}" + "_time${releaseTime()}_${gitCommit()}_${buildTypeName}.apk"
-////                output.outputFile = new File(outputFile.parent, fileName)
-//                outputFileName = fileName
-//            } else if (variant.buildType.name == "debug") {
-//                buildTypeName = "test"
-//                fileName = "${variant.productFlavors[0].name}${variant.productFlavors[1].name}${variant.productFlavors[2].name}" + "_time${releaseTime()}_${gitCommit()}_${buildTypeName}.apk"
-////                output.outputFile = new File(outputFile.parent, fileName)
-//                outputFileName = fileName
-//            }
-//
-//
-//        }
-//    }
-    flavorDimensions("app", "manufacturer", "version")
-    productFlavors {
-        _all {
-            dimension "manufacturer"
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            def buildTypeName = ""
+            def fileName = ""
+            if (variant.buildType.name == "release") {
+                buildTypeName = "release"
+                fileName = "${variant.productFlavors[0].name}" + "_time${releaseTime()}_${gitCommit()}_${buildTypeName}.apk"
+//                output.outputFile = new File(outputFile.parent, fileName)
+                outputFileName = fileName
+            } else if (variant.buildType.name == "debug") {
+                buildTypeName = "test"
+                fileName = "${variant.productFlavors[0].name}" + "_time${releaseTime()}_${gitCommit()}_${buildTypeName}.apk"
+//                output.outputFile = new File(outputFile.parent, fileName)
+                outputFileName = fileName
+            }
+
+
         }
+    }
+//    flavorDimensions("app", "manufacturer", "version")
+    productFlavors {
+//        _all {
+//            dimension "manufacturer"
+//        }
         product1 {
             dimension "app"
             applicationId "com.lee.galleryloader"
@@ -81,11 +81,11 @@ android {
 
             buildConfigField "int","customType","2"
         }
-        _21100_26 {
-            targetSdkVersion 26
-            versionName getVersionName()
-            dimension "version"
-        }
+//        _21100_26 {
+//            targetSdkVersion 26
+//            versionName getVersionName()
+//            dimension "version"
+//        }
     }
 }
 static def appName(boolean  self) {
