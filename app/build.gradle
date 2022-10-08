@@ -18,8 +18,7 @@ android {
         minSdkVersion 16
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -59,7 +58,7 @@ android {
 
         }
     }
-//    flavorDimensions("app", "manufacturer", "version")
+    flavorDimensions("app", "version")
     productFlavors {
 //        _all {
 //            dimension "manufacturer"
@@ -71,9 +70,7 @@ android {
             resValue "string", "app_use_name", appName(true)
 
             buildConfigField "int", "customType", "0"
-            targetSdkVersion 26
-            versionName getVersionName()
-            dimension "version"
+
         }
 
         product2 {
@@ -83,15 +80,13 @@ android {
             resValue "string", "app_use_name", appName(false)
 
             buildConfigField "int", "customType", "2"
+
+        }
+        _21100_26 {
             targetSdkVersion 26
             versionName getVersionName()
             dimension "version"
         }
-//        _21100_26 {
-//            targetSdkVersion 26
-//            versionName getVersionName()
-//            dimension "version"
-//        }
     }
 }
 
