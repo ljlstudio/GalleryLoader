@@ -38,8 +38,94 @@ android {
     dataBinding {
         enabled true
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            def buildTypeName = ""
+            def fileName = ""
+            if (variant.buildType.name == "release") {
+                buildTypeName = "release"
+                fileName = "${variant.productFlavors[0].name}${variant.productFlavors[1].name}${variant.productFlavors[2].name}" + "_time${releaseTime()}_${gitCommit()}_${buildTypeName}.apk"
+//                output.outputFile = new File(outputFile.parent, fileName)
+                outputFileName = fileName
+            } else if (variant.buildType.name == "debug") {
+                buildTypeName = "test"
+                fileName = "${variant.productFlavors[0].name}${variant.productFlavors[1].name}${variant.productFlavors[2].name}" + "_time${releaseTime()}_${gitCommit()}_${buildTypeName}.apk"
+//                output.outputFile = new File(outputFile.parent, fileName)
+                outputFileName = fileName
+            }
+
+
+        }
+    }
+    flavorDimensions("app", "manufacturer", "version")
+    productFlavors {
+        _all {
+            dimension "manufacturer"
+        }
+        product1 {
+            dimension "app"
+            applicationId "com.lee.galleryloader"
+            versionCode getVersionCode()
+            resValue "string", "app_use_name", appName(true)
+
+            buildConfigField "int","customType","0"
+        }
+
+        product2 {
+            dimension "app"
+            applicationId "com.lee.galleryloader"
+            versionCode getVersionCode()
+            resValue "string", "app_use_name", appName(false)
+
+            buildConfigField "int","customType","2"
+        }
+        _21100_26 {
+            targetSdkVersion 26
+            versionName getVersionName()
+            dimension "version"
+        }
+    }
+}
+static def appName(boolean  self) {
+    return selfName(self)
 }
 
+static def getVersionName() {
+    return "1.0.0"
+}
+
+static int getVersionCode() {
+    return 1000
+}
+static def selfName(boolean self) {
+    if (self) {
+        return "Test1"
+    } else {
+        return "Test2"
+    }
+}
+
+def gitVersion() {
+    def gitBranch = 'git symbolic-ref --short -q HEAD'.execute().text.trim()
+    def gitVersion = 'git rev-parse --short HEAD'.execute().text.trim()
+    return "\"" + gitBranch + "_" + gitVersion + "\""
+}
+
+def gitCommit() {
+    def gitVersion = 'git rev-parse --short HEAD'.execute().text.trim()
+    return gitVersion
+}
+
+def releaseTime() {
+    return new Date().format("MMdd_HHmm", TimeZone.getTimeZone("GMT+8:00"))
+}
+
+def releaseTimeString() {
+    def time = new Date().format("MMdd_HHmm", TimeZone.getTimeZone("GMT+8:00"))
+    return "\"" + time + "\""
+}
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'

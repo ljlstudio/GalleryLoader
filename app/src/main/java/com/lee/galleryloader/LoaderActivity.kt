@@ -34,15 +34,15 @@ class LoaderActivity : AppCompatActivity(), LoaderDataCallBack {
      */
     private fun loadData() {
         if (PermissionUtils.permissionsChecking(this, PermissionUtils.CLEAN_STORAGE_PERMISSIONS)) {
-            loader!!.loadClassyData(this)
-            loader!!.loadAllListData(this)
+            loader?.loadClassyData(this)
+            loader?.loadAllListData(this)
         } else {
             AndPermission.with(this)
                 .runtime()
                 .permission(*PermissionUtils.CLEAN_STORAGE_PERMISSIONS)
                 .onGranted {
-                    loader!!.loadClassyData(this)
-                    loader!!.loadAllListData(this)
+                    loader?.loadClassyData(this)
+                    loader?.loadAllListData(this)
                 }
                 .onDenied { }
                 .start()

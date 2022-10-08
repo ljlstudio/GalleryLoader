@@ -14,6 +14,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import com.lee.album.entity.AlbumData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import java.util.ArrayList
 
 class AlbumDataScanner(
@@ -25,7 +30,6 @@ class AlbumDataScanner(
     private val mPickerParam: MediaPickerParam
     private var mAlbumDataReceiver: AlbumDataReceiver? = null
     private var mPause: Boolean
-    private var mDisposable: Disposable? = null
 
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
@@ -42,25 +46,44 @@ class AlbumDataScanner(
         }
     }
 
+    private var job: Job? = null
+
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor) {
-        if (mDisposable == null) {
-            mDisposable = Observable.just(0)
-                .subscribeOn(Schedulers.io())
-                .map { integer: Int? -> scanAllAlbumData(data) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { albumDataList: List<AlbumData?>? ->
-                    mDisposable = null
-                    if (mAlbumDataReceiver != null) {
-                        mAlbumDataReceiver!!.onAlbumDataObserve(albumDataList)
-                    }
-                }
+
+
+        //第一种写法
+        job = GlobalScope.launch(Dispatchers.IO) {
+
+            flow<Cursor> {
+                emit(data)
+            }.map {
+                scanAllAlbumData(it)
+            }.collect {
+                mAlbumDataReceiver?.onAlbumDataObserve(it)
+            }
         }
+
+
+
+//        //第二种写法，不在协程内，不可取消
+//        runBlocking {
+//            flow<Cursor> {
+//
+//            }.map {
+//
+//            }.flowOn(Dispatchers.IO)
+//                .collect {
+//
+//                }
+//        }
+//
+
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        if (mAlbumDataReceiver != null) {
-            mAlbumDataReceiver!!.onAlbumDataReset()
-        }
+        mAlbumDataReceiver?.onAlbumDataReset()
+
     }
 
     fun resume() {
@@ -74,8 +97,7 @@ class AlbumDataScanner(
 
     fun pause() {
         mPause = true
-        mDisposable?.dispose()
-        mDisposable = null
+        job?.cancel()
         mLoaderManager?.destroyLoader(loaderId)
 
     }
